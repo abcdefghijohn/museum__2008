@@ -45,7 +45,16 @@ class Museum
   end
 
   def draw_lottery_winner(exhibit)
-    winner = ticket_lottery_contestants(exhibit).sample
-    winner.name
+    if ticket_lottery_contestants(exhibit).sample
+      winner = ticket_lottery_contestants(exhibit).sample
+      winner.name
+    elsif ticket_lottery_contestants(exhibit) == nil
+      winner = nil
+    end
+  end
+
+  def announce_lottery_winner(exhibit)
+    name = draw_lottery_winner(exhibit)
+    print "#{name} has won the IMAX exhibit lotter"
   end
 end
