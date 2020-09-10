@@ -45,7 +45,7 @@ class  MuseumTest <  Minitest::Test
     patron_1.add_interest("Gems and Minerals")
     patron_2.add_interest("IMAX")
 
-    expected = [dead_sea_scrolls, gems_and_minerals]
+    expected = [gems_and_minerals, dead_sea_scrolls]
     assert_equal expected, dmns.recommend_exhibits(patron_1)
     assert_equal [imax], dmns.recommend_exhibits(patron_2)
   end
