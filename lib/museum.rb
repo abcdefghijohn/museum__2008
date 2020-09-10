@@ -43,4 +43,5 @@ class Museum
     end
     contestants
   end
+
 end

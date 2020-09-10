@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/patron'
 require './lib/exhibit'
 require './lib/museum'
+require 'mocha/minitest'
 
 class  MuseumTest <  Minitest::Test
   def test_it_exists_and_has_attributes
@@ -136,5 +137,34 @@ class  MuseumTest <  Minitest::Test
     dmns.admit(patron_3)
 
     assert_equal [patron_1, patron_3], dmns.ticket_lottery_contestants(dead_sea_scrolls)
+  end
+
+  def test_it_can_draw_lottery_winner
+    dmns = Museum.new("Denver Museum of Nature and Science")
+    gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
+    dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
+    imax = Exhibit.new({name: "IMAX",cost: 15})
+
+    dmns.add_exhibit(gems_and_minerals)
+    dmns.add_exhibit(dead_sea_scrolls)
+    dmns.add_exhibit(imax)
+
+    patron_1 = Patron.new("Bob", 0)
+    patron_1.add_interest("Gems and Minerals")
+    patron_1.add_interest("Dead Sea Scrolls")
+
+    patron_2 = Patron.new("Sally", 20)
+    patron_2.add_interest("Dead Sea Scrolls")
+
+    patron_3 = Patron.new("Johnny", 5)
+    patron_3.add_interest("Dead Sea Scrolls")
+
+    dmns.admit(patron_1)
+    dmns.admit(patron_2)
+    dmns.admit(patron_3)
+
+    dmns.draw_lottery_winner(dead_sea_scrolls).stubs(:sample).returns("Bob")
+
+    assert_equal "Bob", dmns.draw_lottery_winner(dead_sea_scrolls)
   end
 end
