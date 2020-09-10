@@ -44,4 +44,8 @@ class Museum
     contestants
   end
 
+  def draw_lottery_winner(exhibit)
+    winner = ticket_lottery_contestants(exhibit).sample
+    winner.name
+  end
 end
