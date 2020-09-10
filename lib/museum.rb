@@ -35,4 +35,5 @@ class Museum
     end
     exhibits_interest
   end
+
 end
